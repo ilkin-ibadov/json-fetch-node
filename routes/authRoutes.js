@@ -14,14 +14,7 @@ router.put("/edit", authenticateToken, async (req, res) => {
     const status = await User.findByIdAndUpdate(userId, {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      photo: req.body.photo,
-      about: req.body.about,
       email: req.body.email,
-      phone: req.body.phone,
-      socialMedia: req.body.socialMedia,
-      experience: req.body.experience,
-      skills: req.body.skills,
-      cv: req.body.cv
     });
 
     res.json(status ? "Successfully Updated" : "error happened");
@@ -36,30 +29,14 @@ router.post("/register", async (req, res) => {
     const {
       firstname,
       lastname,
-      photo,
-      about,
       email,
-      phone,
-      profilePicture,
-      socialMedia,
-      experience,
-      skills,
       password,
-      cv
     } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
     const user = new User({
       firstname,
       lastname,
-      photo,
-      about,
       email,
-      phone,
-      profilePicture,
-      socialMedia,
-      experience,
-      skills,
-      cv,
       passwordHash,
     });
     await user.save();
